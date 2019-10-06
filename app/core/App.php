@@ -21,7 +21,7 @@ class App{
         // Method
         
         if(isset($url[1])){
-            if(method_exists($this->controller, $url[1])){
+            if(method_exists( $this->controller, $url[1])){
                 $this->method = $url[1];
                 unset($url[1]);
             }
@@ -29,8 +29,11 @@ class App{
 
         // Parameter
         if(!empty($url)){
-            var_dump($url);
+            $this->params = array_values($url);
         }
+
+        // jalankan controller $ method , serta kirimkan params jika ada
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     public function parseURL(){
